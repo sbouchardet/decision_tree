@@ -1,5 +1,7 @@
 package DecisionTree
 
+import "fmt"
+
 func GainInformation(features map[string][]int, targetFeature string, desorder func([]int) float64, mapGroups func(map[string][]int) map[string][]int) map[string]float64 {
 	var gi = make(map[string]float64)
 
@@ -13,12 +15,16 @@ func GainInformation(features map[string][]int, targetFeature string, desorder f
 				subGroup[v] = append(subGroup[v], features[targetFeature][i])
 			}
 
+			fmt.Println("\nFT:", key, "")
 			var sumDesorders float64
-			for _, v := range subGroup {
-				sumDesorders += float64(len(v)) / total * desorder(v)
+			for k, v := range subGroup {
+				fmt.Println("P(", k, ") | ", v, " = ", (float64(len(v)) / total))
+				fmt.Println("D(", k, ") = ", desorder(v))
+				sumDesorders += (float64(len(v)) / total) * desorder(v)
 			}
 
-			gi[key] = desorder(value) - sumDesorders
+			fmt.Println("D(", features[targetFeature], ") = ", desorder(features[targetFeature]))
+			gi[key] = desorder(features[targetFeature]) - sumDesorders
 
 		}
 	}
