@@ -1,28 +1,10 @@
-package main
+package DecisionTree
 
 import (
-	"fmt"
 	"math"
 )
 
-func main() {
-	var x [3][5]int = [3][5]int{{1, 2, 3, 4, 19}, {2, 3, 4, 5, 6}, {3, 4, 5, 6, 7}}
-
-	var soma float64 = 0
-	for _, value := range x {
-		for _, valuej := range value {
-			// fmt.Print("[", i, j, "]= ", valuej, "| ")
-			soma += float64(valuej)
-		}
-	}
-
-	var xw = [6]int{2, 3, 45, 100, 2, 4}
-
-	fmt.Println(variance(xw[:]))
-	fmt.Println(entropy(xw[:]))
-}
-
-func variance(x []int) float64 {
+func Variance(x []int) float64 {
 	var sizeOfX float64 = float64(len(x))
 	var sum float64 = 0
 	for _, value := range x {
@@ -37,7 +19,7 @@ func variance(x []int) float64 {
 	return sumDif / (sizeOfX - 1)
 }
 
-func entropy(x []int) float64 {
+func Entropy(x []int) float64 {
 	var ent float64 = 0
 	var sliceOfDifX = make(map[int]int)
 	for _, val := range x {
