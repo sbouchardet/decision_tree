@@ -25,9 +25,19 @@ func main() {
 	// fmt.Println(features)
 	// fmt.Println(GainInformation(features, "target", Entropy, func(x map[string][]int) map[string][]int { return x }))
 
-	values, err := ReadCSV("teste.csv")
+	dt := DecisionTree{"tg"}
+
+	values, err := dt.ReadCSV("teste.csv")
 	if err != nil {
 		fmt.Print(err.Error())
 	}
-	fmt.Println(GainInformation(values, "tg", Entropy, func(x map[string][]int) map[string][]int { return x }))
+	s := GainInformation(values, "tg", Entropy, func(x map[string][]int) map[string][]int { return x })
+
+	fmt.Print(s)
+
+	splited := dt.SplitDataset(values, "ft1", func(x []int) []int { return x })
+	for k := range splited {
+		fmt.Println(splited[k])
+	}
+
 }
